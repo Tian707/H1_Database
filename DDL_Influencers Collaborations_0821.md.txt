@@ -1,0 +1,217 @@
+CREATE TABLE Colaborations(
+	collaborationsID INT NOT NULL PRIMARY KEY,
+	influencerID INT FOREIGN KEY REFERENCES Influencers(InfluencerID),
+	brandID INT FOREIGN KEY REFERENCES Brands(brandID),
+	);
+
+ALTER TABLE Collaborations
+ADD platformID INT FOREIGN KEY REFERENCES SocialMediaPlatforms(platformID);
+ALTER TABLE Colaborations
+ADD duration INT;
+ALTER TABLE Colaborations
+ADD payment Int;
+
+INSERT INTO Influencers VALUES (1, 'Anna', 24, 50000);
+INSERT INTO Influencers VALUES (2, 'Bent', 22, 20000);
+INSERT INTO Influencers VALUES (3, 'Caroline', 26, 80000);
+INSERT INTO Influencers VALUES (4, 'David', 28, 45000);
+INSERT INTO Influencers VALUES (5, 'Ella', 30, 70000);
+INSERT INTO Influencers VALUES (6, 'Frank', 27, 32000);
+INSERT INTO Influencers VALUES (7, 'Grace', 29, 92000);
+INSERT INTO Influencers VALUES (8, 'Henry', 31, 48000);
+
+INSERT INTO SocialMediaPlatforms VALUES (1, 'Instagram', 24.5, 100000);
+INSERT INTO SocialMediaPlatforms VALUES (2, 'Tik Tok', 18.5, 2000000);
+INSERT INTO SocialMediaPlatforms VALUES (3, 'You Tube', 28.5, 1500000);
+INSERT INTO SocialMediaPlatforms VALUES (4, 'Snapchat', 20.0, 800000);
+INSERT INTO SocialMediaPlatforms VALUES (5, 'Twitter', 27.5, 500000);
+INSERT INTO SocialMediaPlatforms VALUES (6, 'Facebook', 32.5, 2000000);
+INSERT INTO SocialMediaPlatforms VALUES (7, 'Pinterest', 29.0, 600000);
+INSERT INTO SocialMediaPlatforms VALUES (8, 'LinkedIn', 34.0, 400000);
+
+INSERT INTO Brands VALUES (1, 'FashionCo', 'fashion');
+INSERT INTO Brands VALUES (2, 'BeautyBliss', 'beauty');
+INSERT INTO Brands VALUES (3, 'TechTron', 'technology');
+INSERT INTO Brands VALUES (4, 'GlamGlow', 'beauty');
+INSERT INTO Brands VALUES (5, 'SportSpot', 'sport');
+INSERT INTO Brands VALUES (6, 'EcoEssentials', 'lifestyle');
+INSERT INTO Brands VALUES (7, 'Trend Tech', 'technology');
+INSERT INTO Brands VALUES (8, 'MystiqueMakeup', 'beauty');
+
+INSERT INTO Collaborations VALUES (1, 1, 1, 1, 30, 5000.00);
+INSERT INTO Collaborations VALUES (2, 2, 3, 2, 10, 3000.50);
+INSERT INTO Collaborations VALUES (3, 3, 2, 3, 20, 7500.00);
+INSERT INTO Collaborations VALUES (4, 4, 4, 4, 15, 2500.00);
+INSERT INTO Collaborations VALUES (5, 1, 2, 1, 25, 6000.50);
+INSERT INTO Collaborations VALUES (6, 3, 1, 2, 40, 6000.75);
+INSERT INTO Collaborations VALUES (7, 5, 5, 5, 45, 5300.00);
+INSERT INTO Collaborations VALUES (8, 6, 6, 6, 20, 3000.25);
+INSERT INTO Collaborations VALUES (9, 7, 7, 7, 15, 4700.50);
+INSERT INTO Collaborations VALUES (10, 8, 8, 8, 25, 2900.00);
+INSERT INTO Collaborations VALUES (11, 5, 7, 1, 30, 5100.75);
+INSERT INTO Collaborations VALUES (12, 6, 5, 2, 40, 4400.00);
+INSERT INTO Collaborations VALUES (13, 7, 6, 3, 25, 6500.25);
+INSERT INTO Collaborations VALUES (14, 8, 7, 4, 20, 7000.25);
+
+
+//change data type of payment from INT TO FLOAT
+ALTER TABLE Collaborations
+ALTER COLUMN payment FLOAT;
+
+// change value 
+UPDATE Collaborations
+SET payment = 5000.00 WHERE collaborationID = 1;
+UPDATE Collaborations
+SET payment = 3000.50 WHERE collaborationID = 2;
+UPDATE Collaborations
+SET payment = 7500.00 WHERE collaborationID = 3;
+UPDATE Collaborations
+SET payment = 2500.00 WHERE collaborationID = 4;
+UPDATE Collaborations
+SET payment = 6000.50 WHERE collaborationID = 5;
+UPDATE Collaborations
+SET payment = 6500.75 WHERE collaborationID = 6;
+UPDATE Collaborations
+SET payment = 5300.00 WHERE collaborationID = 7;
+UPDATE Collaborations
+SET payment = 3000.25 WHERE collaborationID = 8;
+UPDATE Collaborations
+SET payment = 4700.50 WHERE collaborationID = 9;
+UPDATE Collaborations
+SET payment = 2900.00 WHERE collaborationID = 10;
+UPDATE Collaborations
+SET payment = 5100.75 WHERE collaborationID = 11;
+UPDATE Collaborations
+SET payment = 4400.00 WHERE collaborationID = 12;
+UPDATE Collaborations
+SET payment = 6500.25 WHERE collaborationID = 13;
+UPDATE Collaborations
+SET payment = 7000.50 WHERE collaborationID = 14;
+
+1. 
+SELECT name FROM Influencers;
+
+2. 
+SELECT name FROM SocialMediaPlatforms;
+
+3. 
+SELECT name FROM Influencers
+WHERE age > 25;
+
+4. 
+SELECT name FROM Brands
+WHERE category = 'beauty';
+
+5.
+SELECT COUNT(*)
+FROM Influencers
+WHERE InstagramFollowers > 50000;
+
+6.
+SELECT name FROM SocialMediaPlatforms
+WHERE AverageUserAge = (SELECT Min(AverageUserAge) FROM SocialMediaPlatforms);
+
+7. 
+SELECT Influencers.name
+FROM Collaborations
+	JOIN Brands ON Collaborations.brandID = Brands.brandID
+	JOIN Influencers ON Collaborations.influencerID = Influencers.influencerID
+WHERE Brands.name = 'FashionCo';
+
+8.
+SELECT name FROM SocialMediaPlatforms
+WHERE totalUsers > 1000000;
+
+9.
+SELECT name FROM Influencers
+WHERE age >= 25 AND age <= 30;
+
+10. 
+?SELECT DISTINCT Brands.name
+?FROM Collaborations
+?	JOIN Brands ON Collaborations.brandID = Brands.brandID
+?	JOIN SocialMediaPlatforms on Collaborations.platformID = SocialMediaPlatforms.platformID
+?WHERE SocialMediaPlatforms.name NOT IN ('Snapchat')
+
+
+SELECT DISTINCT Brands.name
+FROM Brands
+WHERE Brands.brandID NOT IN (
+	SELECT Collaborations.brandID
+	FROM Collaborations
+	JOIN SocialMediaPlatforms on Collaborations.platformID = SocialMediaPlatforms.platformID
+	WHERE SocialMediaPlatforms.name = 'Snapchat');
+
+	
+11. 
+SELECT Brands.name 
+FROM Collaborations
+	JOIN Brands ON Collaborations.brandID = Brands.brandID
+WHERE Collaborations.duration = (
+	SELECT MAX(duration) FROM Collaborations);
+
+
+12. 
+SELECT Influencers.name, COUNT(DISTINCT Brands.brandID)
+FROM Collaborations
+	JOIN Brands ON Collaborations.brandID = Brands.brandID
+	JOIN Influencers ON Collaborations.influencerID = Influencers.influencerID
+GROUP BY Influencers.name;
+
+
+13.
+SELECT DISTINCT Brands.name 
+FROM Collaborations
+	JOIN Brands ON Collaborations.brandID = Brands.brandID
+	JOIN Influencers ON Collaborations.influencerID = Influencers.influencerID
+WHERE Influencers.InstagramFollowers >40000; 
+
+
+14.
+SELECT SocialMediaPlatforms.name, AVG(Influencers.age)
+From Collaborations
+	JOIN SocialMediaPlatforms ON Collaborations.platformID = SocialMediaPlatforms.platformID
+	JOIN Influencers ON Collaborations.influencerID = Influencers.influencerID
+GROUP BY SocialMediaPlatforms.name;
+
+
+15.
+SELECT Influencers.name
+FROM Collaborations
+	JOIN Brands ON Collaborations.brandID = Brands.brandID
+	JOIN Influencers ON Collaborations.influencerID = Influencers.influencerID
+// GROUP BY Influencers.name
+HAVING COUNT(Collaborations.influencerID) > 1;
+
+16.
+SELECT DISTINCT SocialMediaPlatforms.name
+FROM SocialMediaPlatforms
+WHERE SocialMediaPlatforms.platformID NOT IN (
+	SELECT SocialMediaPlatforms.platformID 
+	FROM Collaborations
+		JOIN Brands ON Collaborations.brandID = Brands.brandID
+		JOIN SocialMediaPlatforms ON Collaborations.platformID = SocialMediaPlatforms.platformID
+	WHERE Brands.name = 'TechTron'
+	);
+
+
+17.
+SELECT name, SUM(payment)
+FROM Collaborations
+	JOIN Influencers ON Collaborations.influencerID = Influencers.influencerID
+GROUP BY Influencers.name;
+
+18.
+
+
+
+
+
+
+
+
+
+
+
+
+
