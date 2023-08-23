@@ -1,0 +1,94 @@
+
+USE master;
+DROP DATABASE MovieFestival;
+
+CREATE DATABASE MovieFestival;
+GO
+USE MovieFestival;
+
+-- create tables
+
+CREATE TABLE Directors(
+	directorID INT NOT NULL PRIMARY KEY,
+	dir_firstName VARCHAR(50) NOT NULL,
+	dir_lastName VARCHAR(50) NOT NULL,
+	birthYear INT
+);
+
+CREATE TABLE Actors(
+	actorID INT NOT NULL PRIMARY KEY,
+	act_firstName VARCHAR(50) NOT NULL,
+	act_lastName VARCHAR(50) NOT NULL,
+	age INT
+);
+CREATE TABLE Genres(
+	genreID INT NOT NULL PRIMARY KEY,
+	genreName VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE Movies(
+	movieID INT NOT NULL PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	durationMin INT NOT NULL,
+	genreID  INT NOT NULL FOREIGN KEY REFERENCES Genres(genreID),
+	releaseYear INT NOT NULL,
+);
+
+CREATE TABLE Shows(
+	showID INT NOT NULL PRIMARY KEY,
+	totalCount INT NOT NULL,
+	movieID  INT NOT NULL FOREIGN KEY REFERENCES Movies(movieID)
+);
+
+
+CREATE TABLE Users(
+	userID INT NOT NULL PRIMARY KEY,
+	user_name VARCHAR(50) NOT NULL,
+	e_mail VARCHAR(50) NOT NULL,
+	passwords VARCHAR(50) NOT NULL
+);
+CREATE TABLE Cinemas(
+	cinemaID INT NOT NULL PRIMARY KEY,
+	cinema_name VARCHAR(30) NOT NULL,
+	address VARCHAR(100) NOT NULL,
+	totalHalls INT NOT NULL
+);
+CREATE TABLE Halls(
+	hallID INT NOT NULL PRIMARY KEY,
+	totalSeats INT NOT NULL,
+	cinemaID  INT NOT NULL FOREIGN KEY REFERENCES Cinemas(cinemaID),
+	hallNr INT NOT NULL
+);
+CREATE TABLE Seats(
+	seatID INT NOT NULL PRIMARY KEY,
+	hallID  INT NOT NULL FOREIGN KEY REFERENCES Halls(hallID)
+);
+CREATE TABLE Tickets(
+	ticketID INT NOT NULL PRIMARY KEY,
+	price FLOAT NOT NULL,
+	showID  INT NOT NULL FOREIGN KEY REFERENCES Shows(showID),
+	userID  INT NOT NULL FOREIGN KEY REFERENCES Users(userID),
+	seatID  INT NOT NULL FOREIGN KEY REFERENCES Seats(seatID)
+);
+
+--Joint tables
+CREATE TABLE MoviesDirectors(
+	movieDirectorID INT NOT NULL PRIMARY KEY,
+	movieID  INT NOT NULL FOREIGN KEY REFERENCES Movies(movieID),
+	directorID  INT NOT NULL FOREIGN KEY REFERENCES Directors(directorID)
+);
+CREATE TABLE MoviesActors(
+	movieActorID INT NOT NULL PRIMARY KEY,
+	movieID  INT NOT NULL FOREIGN KEY REFERENCES Movies(movieID),
+	actorID  INT NOT NULL FOREIGN KEY REFERENCES Actors(actorID)
+);
+CREATE TABLE ShowsHalls(
+	showHallID INT NOT NULL PRIMARY KEY,
+	showID  INT NOT NULL FOREIGN KEY REFERENCES Shows(showID),
+	hallID  INT NOT NULL FOREIGN KEY REFERENCES Halls(hallID)
+);
+
+-- data manipulation:
+--SELECT dir_name FROM MoviesDirectors MD
+--JOIN Directors D ON D.directorID = MD.directorID
+--WHERE D.birthYear > 1970;

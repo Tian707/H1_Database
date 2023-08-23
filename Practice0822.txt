@@ -1,0 +1,32 @@
+CREATE DATABASE StudentsCourseManagement
+
+USE StudentsCourseManagement
+
+CREATE TABLE Students(
+	studentID INT NOT NULL PRIMARY KEY,
+	student_name VARCHAR(30) NOT NULL,
+	);
+
+CREATE TABLE Courses(
+	courseID INT NOT NULL PRIMARY KEY,
+	course_name VARCHAR(30) NOT NULL,
+	studentID INT FOREIGN KEY REFERENCES Students(studentID)
+	);
+
+INSERT INTO Students Values(1, 'Anders');
+INSERT INTO Students Values(2, 'Brigitte');
+INSERT INTO Students Values(3, 'Carl');
+
+INSERT INTO Courses Values(101, 'Matematik', 1);
+INSERT INTO Courses Values(102, 'Dansk', 1);
+INSERT INTO Courses Values(103, 'Historie', 3);
+
+
+SELECT S.student_name, C.course_name
+FROM Courses C
+FULL JOIN Students S ON C.studentID = S.studentID;
+
+SELECT *
+-- S.student_name, C.course_name
+FROM Courses C
+	RIGHT JOIN Students S ON C.studentID = S.studentID;

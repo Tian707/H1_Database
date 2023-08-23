@@ -202,12 +202,36 @@ FROM Collaborations
 GROUP BY Influencers.name;
 
 18.
+--filter with one condition:
+SELECT I.name 
+FROM Influencers I
+WHERE I.influencerID IN (
+	SELECT C.influencerID FROM Collaborations C
+	JOIN SocialMediaPlatforms S ON C.platformID = S.platformID
+	WHERE S.name = 'Tik Tok')
 
 
 
+Practice:
+1.
+Select 
+	order_status,
+	MAX(order_anount) AS max,
+	MIN(order_anount) AS min,
+	AVG(order_anount) AS avg,
+	COUNT(DISTINCT order_id) AS order_count
+From Orders
+WHERE dt = 20211201
+GROUP BY order_status
 
-
-
+2.
+SELECT 
+	user_id, dt, SUM(order_amount)
+FROM Orders
+WHERE dt BETWEEN '20211201' AND '20211203'
+GROUP BY 
+	user_id,
+	dt
 
 
 
