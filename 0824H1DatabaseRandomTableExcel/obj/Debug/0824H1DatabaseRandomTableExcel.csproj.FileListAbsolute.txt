@@ -1,0 +1,10 @@
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\obj\Debug\0824H1DatabaseRandomTableExcel.csproj.AssemblyReference.cache
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\obj\Debug\0824H1DatabaseRandomTableExcel.csproj.CoreCompileInputs.cache
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\bin\Debug\0824H1DatabaseRandomTableExcel.exe.config
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\bin\Debug\0824H1DatabaseRandomTableExcel.exe
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\bin\Debug\0824H1DatabaseRandomTableExcel.pdb
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\obj\Debug\0824H1DatabaseRandomTableExcel.exe
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\obj\Debug\0824H1DatabaseRandomTableExcel.pdb
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\bin\Debug\System.Data.SqlClient.dll
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\bin\Debug\System.Data.SqlClient.xml
+C:\Users\tian0139\source\repos\0824H1DatabaseRandomTableExcel\obj\Debug\0824H1DatabaseRandomTableExcel.csproj.CopyComplete
